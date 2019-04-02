@@ -1,5 +1,10 @@
 import React from "react";
+import SerachBar from "./SearchBar";
 const App = () => {
-  return <div> App</div>;
+  return (
+    <div>
+      <SerachBar />
+    </div>
+  );
 };
 export default App;
