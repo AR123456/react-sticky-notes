@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 
 class SearchBar extends Component {
-  onInputChange(event) {
-    console.log(event.target.value);
-  }
+  state = { term: "" };
   // onInputClick() {
   //   console.log("Input was clicked");
   // }
@@ -16,7 +14,8 @@ class SearchBar extends Component {
             <input
               type="text"
               // onClick={this.onInputClick}
-              onChange={this.onInputChange}
+              value={this.state.term}
+              onChange={e => this.setState({ term: e.target.value })}
               name=""
               id=""
             />
