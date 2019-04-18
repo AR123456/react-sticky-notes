@@ -1,33 +1,36 @@
 .box {
-  background: #9b59b6;
+  background: #2ecc71;
   height: 100px;
-  width: 100px;
   line-height: 100px;
   text-align: center;
   color: white;
   font-size: 17px;
   border-radius: 20px;
-  animation-name: slideRight;
-  animation-iteration-count: infinite;
-  animation-delay: 0;
-  animation-duration: 2s;
-  /* animation-play-state: paused; */
 }
 
 .box:hover {
-  animation-play-state: running;
+  animation-name: changecolor;
+  animation-delay: 2s;
+  animation-duration: 3s;
+}
+/* this one is used the most in the real world, animate to the end state and stay there  */
+.forwards {
+  animation-fill-mode: forwards;
 }
 
-.alternate {
-  animation-direction: alternate;
+.backwards {
+  animation-fill-mode: backwards;
 }
 
-.reverse {
-  animation-direction: reverse;
+.both {
+  animation-fill-mode: both;
 }
 
-@keyframes slideRight {
+@keyframes changecolor {
+  0% {
+    background-color: #f1c40f;
+  }
   100% {
-    transform: translateX(500px);
+    background-color: #e74c3c;
   }
 }
