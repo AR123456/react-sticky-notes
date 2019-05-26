@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 // import { render } from "react-dom";
-import { ResponsiveBar } from "@nivo/bar";
+import { BarChart, Bar, XAxis, YAxis } from "recharts";
 
-class BarChart extends Component {
+class BChart extends Component {
   render() {
     const styles = {
       fontFamily: "sans-serif",
@@ -17,12 +17,14 @@ class BarChart extends Component {
     ];
     return (
       <div style={styles}>
-        <h1>Nivo basic demo</h1>
-        <div style={{ height: "400px" }}>
-          <ResponsiveBar data={data} keys={["earnings"]} indexBy="quarter" />
-        </div>
+        <h1>Recharts basic demo</h1>
+        <BarChart width={500} height={300} data={data}>
+          <XAxis dataKey="quarter" />
+          <YAxis dataKey="earnings" />
+          <Bar dataKey="earnings" />
+        </BarChart>
       </div>
     );
   }
 }
-export default BarChart;
+export default BChart;
