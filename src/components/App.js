@@ -1,25 +1,12 @@
 import React from "react";
-import unsplash from "../api/unsplash";
-import SearchBar from "./SearchBar";
-import ImageList from "./ImageList";
+// import * as d3 from "d3";
+import BarChart from "./BarChart";
 
 class App extends React.Component {
-  state = {
-    images: []
-  };
-  // making onSearchSubmit into an arrow function
-  onSearchSubmit = async term => {
-    const response = await unsplash.get("/search/photos", {
-      params: { query: term }
-    });
-    this.setState({ images: response.data.results });
-  };
   render() {
     return (
-      <div className="ui container" style={{ marginTop: "10px" }}>
-        <SearchBar onSubmit={this.onSearchSubmit} />
-        {/* Found:{this.state.images.length} images */}
-        <ImageList images={this.state.images} />
+      <div>
+        <BarChart />
       </div>
     );
   }
