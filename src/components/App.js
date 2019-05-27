@@ -1,13 +1,15 @@
 import React from "react";
-// import * as d3 from "d3";
-import BarChart from "./BarChart";
-
+import Barchart from "./BarChart";
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center"
+};
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <BarChart />
-      </div>
+      <svg width="800" height="600">
+        <Barchart x={100} y={100} width={400} height={300} />
+      </svg>
     );
   }
 }
