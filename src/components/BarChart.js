@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 // import { render } from "react-dom";
-import { BarChart, Bar, XAxis, YAxis } from "recharts";
+import { VictoryBar, VictoryChart } from "victory";
 
-class BChart extends Component {
+class BarChart extends Component {
   render() {
     const styles = {
       fontFamily: "sans-serif",
@@ -17,14 +17,12 @@ class BChart extends Component {
     ];
     return (
       <div style={styles}>
-        <h1>Recharts basic demo</h1>
-        <BarChart width={500} height={300} data={data}>
-          <XAxis dataKey="quarter" />
-          <YAxis dataKey="earnings" />
-          <Bar dataKey="earnings" />
-        </BarChart>
+        <h1>Victory basic demo</h1>
+        <VictoryChart domainPadding={20}>
+          <VictoryBar data={data} x="quarter" y="earnings" />
+        </VictoryChart>
       </div>
     );
   }
 }
-export default BChart;
+export default BarChart;
