@@ -1,13 +1,64 @@
-import D3blackbox from "./D3blackbox";
+import React from "react";
 import * as d3 from "d3";
+import styled from "styled-components";
 
-const Axis = D3blackbox(function() {
-  const scale = d3
-    .scaleLinear()
-    .domain([0, 10])
-    .range([0, 200]);
-  const axis = d3.axisBottom(scale);
+const Text = styled.text`
+  fill: black;
+  font-family: sans-serif;
+  font-size: 10px;
+`;
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center"
+};
 
-  d3.select(this.anchor.current).call(axis);
-});
+class Axis extends React.Component {
+  constructor() {
+    super();
+    this.gRef = React.createRef();
+  }
+
+  componentDidUpdate() {
+    this.d3Render();
+  }
+
+  componentDidMount() {
+    this.d3Render();
+  }
+
+  d3Render() {
+    const { type } = this.props;
+
+    d3.select(this.gRef.current).call(d3[`axis${type}`](this.props.scale));
+    console.log(this.gRef.current.getBBox());
+  }
+
+  get labelPos() {
+    const { type, scale } = this.props;
+
+    switch (type) {
+      case "Top":
+        return { x: scale.range()[1] + 20, y: 0 };
+      case "Right":
+        return { x: 20, y: 0 };
+      case "Bottom":
+        return { x: scale.range()[1] + 25, y: 25 };
+      case "Left":
+        return { x: -25, y: 0 };
+      default:
+        break;
+    }
+  }
+
+  render() {
+    const { x, y, label } = this.props;
+
+    return (
+      <g ref={this.gRef} transform={`translate(${x}, ${y})`}>
+        <Text {...this.labelPos}>{label}</Text>
+      </g>
+    );
+  }
+}
+
 export default Axis;
