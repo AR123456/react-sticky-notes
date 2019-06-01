@@ -1,22 +1,26 @@
 import React from "react";
-
-import * as d3 from "d3";
-import Axis from "./Axis";
-
-const linearScale = d3
-  .scaleLinear()
-  .domain([0, 10])
-  .range([0, 200]);
+import unsplash from "../api/unsplash";
+import SearchBar from "./SearchBar";
+import ImageList from "./ImageList";
 
 class App extends React.Component {
+  state = {
+    images: []
+  };
+  // making onSearchSubmit into an arrow function
+  onSearchSubmit = async term => {
+    const response = await unsplash.get("/search/photos", {
+      params: { query: term }
+    });
+    this.setState({ images: response.data.results });
+  };
   render() {
     return (
-      <svg width="800" height="400" id="svg">
-        <Axis scale={linearScale} type="Bottom" x={30} y={310} label="Bottom" />
-        <Axis scale={linearScale} type="Left" x={100} y={100} label="Left" />
-        <Axis scale={linearScale} type="Top" x={50} y={50} label="Top" />
-        <Axis scale={linearScale} type="Right" x={200} y={100} label="Right" />
-      </svg>
+      <div className="ui container" style={{ marginTop: "10px" }}>
+        <SearchBar onSubmit={this.onSearchSubmit} />
+        {/* Found:{this.state.images.length} images */}
+        <ImageList images={this.state.images} />
+      </div>
     );
   }
 }
