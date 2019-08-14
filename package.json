@@ -4,11 +4,8 @@
   "private": true,
   "dependencies": {
     "@nivo/bar": "^0.58.0",
-    "@vx/scale": "^0.0.189",
-    "@vx/shape": "^0.0.189",
     "axios": "^0.18.0",
     "d3": "latest",
-    "d3-array": "^2.2.0",
     "nivo": "^0.31.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

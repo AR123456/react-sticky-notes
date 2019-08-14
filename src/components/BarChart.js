@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { render } from "react-dom";
 import { ResponsiveBar } from "@nivo/bar";
 
-class BChart extends Component {
+class BarChart extends Component {
   render() {
     const styles = {
       fontFamily: "sans-serif",
@@ -25,4 +25,4 @@ class BChart extends Component {
     );
   }
 }
-export default BChart;
+export default BarChart;
