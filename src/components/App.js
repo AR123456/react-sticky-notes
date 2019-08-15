@@ -1,5 +1,5 @@
 import React from "react";
-import Axis from "./Axis";
+import Barchart from "./BarChart";
 const styles = {
   fontFamily: "sans-serif",
   textAlign: "center"
@@ -7,8 +7,8 @@ const styles = {
 class App extends React.Component {
   render() {
     return (
-      <svg width="800" height="400" id="svg">
-        <Axis y={10} />
+      <svg width="800" height="600">
+        <Barchart x={100} y={100} width={400} height={300} />
       </svg>
     );
   }
