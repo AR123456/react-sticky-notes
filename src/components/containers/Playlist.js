@@ -11,7 +11,7 @@ const Playlist = ({ videos, active, nightModeCallback, nightMode }) => (
       nightMode={nightMode}
     ></NightMode>
     <PlaylistHeader active={active} total={videos.length}></PlaylistHeader>
-    <PlaylistItems video={videos} active={active}></PlaylistItems>
+    <PlaylistItems videos={videos} active={active}></PlaylistItems>
   </StyledPlaylist>
 );
 
