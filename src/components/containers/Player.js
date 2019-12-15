@@ -24,7 +24,7 @@ const themeLight = {
   color: "#353535"
 };
 
-const WbnPlayer = props => {
+const Player = props => {
   const videos = JSON.parse(document.querySelector('[name="videos"]').value);
   const savedState = JSON.parse(localStorage.getItem(`${videos.playlistId}`));
 
@@ -128,4 +128,4 @@ const WbnPlayer = props => {
   );
 };
 
-export default WbnPlayer;
+export default Player;
