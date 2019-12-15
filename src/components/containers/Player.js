@@ -11,7 +11,8 @@ const theme = {
   bgcolorPlayed: "#526d4e",
   border: "none",
   borderPlayed: "none",
-  color: "#fff"
+  color: "green"
+  // color: "#fff"
 };
 
 const themeLight = {
