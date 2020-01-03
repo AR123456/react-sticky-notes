@@ -1,4 +1,5 @@
 {
+  "homepage": "https://ar123456.github.io/react-projects/",
   "name": "react-hooks-videoplayer-start",
   "version": "0.1.0",
   "private": true,
@@ -24,6 +25,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "homepage": "https://ar123456.github.io/react-projects/"
+  ]
 }
