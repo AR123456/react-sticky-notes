@@ -1,5 +1,5 @@
 {
-  "name": "World Map",
+  "name": "world",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,7 +8,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "^3.2.0",
-    "resize-observer-polyfill": "^1.5.1"
+    "resize-observer-polyfill": "^1.5.1",
+    "scripts": "^0.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,5 +31,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "# Playing with the code from this you tube Tutorial The Muratorium by Muri Kemaldar",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AR123456/react-projects.git"
+  },
+  "author": "Anne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AR123456/react-projects/issues"
+  },
+  "homepage": "https://github.com/AR123456/react-projects#readme"
 }
