@@ -10,6 +10,14 @@ import {
 } from "./constants";
 
 const App = () => {
+  const canvasRef = useRef();
+  // set up state with the hooks syntax
+  const [snake, setSnake] = useState(SNAKE_START);
+  const [apple, setApple] = useState(APPLE_START);
+  const [dir, setDir] = useState([0, -1]);
+  const [speed, setSpeed] = useState(null);
+  const [gameOver, setGameover] = useState(false);
+
   const startGame = () => {
     //
   };
