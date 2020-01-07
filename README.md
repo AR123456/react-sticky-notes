@@ -1,4 +1,4 @@
-# Using React (Hooks) with D3 - [12] World Map with D3-geo
+# Using React Hooks
 
 # Snake game using react hooks
 
