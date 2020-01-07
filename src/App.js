@@ -1,59 +1,47 @@
-import React, { useState, useRef, useEffect, Fragment } from "react";
-import { useInterval } from "./useInterval";
-import {
-  CANVAS_SIZE,
-  SNAKE_START,
-  APPLE_START,
-  SCALE,
-  SPEED,
-  DIRECTIONS
-} from "./constants";
+import React, { useEffect, useState } from "react";
+import BBTimeline from "./BBTimeline";
+import "./App.css";
 
-const App = () => {
-  const canvasRef = useRef();
-  // set up state with the hooks syntax
-  const [snake, setSnake] = useState(SNAKE_START);
-  const [apple, setApple] = useState(APPLE_START);
-  const [dir, setDir] = useState([0, -1]);
-  const [speed, setSpeed] = useState(null);
-  const [gameOver, setGameover] = useState(false);
+function App() {
+  const [bbEpisodes, setBbEpisodes] = useState([]);
+  const [bbCharacters, setBbCharacters] = useState([]);
+  const [highlight, setHighlight] = useState();
 
-  const startGame = () => {
-    //
-  };
-  const endGame = () => {
-    //
-  };
-  const moveSnake = () => {
-    //
-  };
-  const createApple = () => {
-    //
-  };
-  const checkCollision = () => {
-    //
-  };
-  const checkAppleCollision = () => {
-    //
-  };
-  const gameLoop = () => {
-    //
-  };
   useEffect(() => {
-    //
-  }, [snake, apple, gameOver]);
+    fetch("https://www.breakingbadapi.com/api/characters?category=Breaking+Bad")
+      .then(response => response.ok && response.json())
+      .then(characters => {
+        setBbCharacters(
+          characters.sort((a, b) => a.name.localeCompare(b.name))
+        );
+      })
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    fetch("https://www.breakingbadapi.com/api/episodes?series=Breaking+Bad")
+      .then(response => response.ok && response.json())
+      .then(episodes => {
+        console.warn(episodes);
+        setBbEpisodes(episodes);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
-    <div role="button" tabIndex="0" onKeyDown={e => moveSnake(e)}>
-      <canvas
-        style={{ border: "1px solid black" }}
-        ref={canvasRef}
-        width={`${CANVAS_SIZE[0]}px`}
-        height={`${CANVAS_SIZE[1]}px`}
-      ></canvas>
-      {gameOver && <div>Game Over !</div>}
-      <button onClick={startGame}>StartGame</button>
-    </div>
+    <React.Fragment>
+      <h1>Breaking Bad Timeline</h1>
+      <BBTimeline highlight={highlight} data={bbEpisodes} />
+
+      <h2>Select your character</h2>
+      <select value={highlight} onChange={e => setHighlight(e.target.value)}>
+        <option>Select character</option>
+        {bbCharacters.map(character => (
+          <option key={character.name}>{character.name}</option>
+        ))}
+      </select>
+    </React.Fragment>
   );
-};
+}
+
 export default App;
