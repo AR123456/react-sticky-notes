@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Fragment } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useInterval } from "./useInterval";
 import {
   CANVAS_SIZE,
@@ -18,13 +18,8 @@ const App = () => {
   const [speed, setSpeed] = useState(null);
   const [gameOver, setGameover] = useState(false);
 
-  const startGame = () => {
-    setSnake(SNAKE_START);
-    setApple(APPLE_START);
-    setDir([0, -1]);
-    setSpeed(SPEED);
-    setGameover(false);
-  };
+  useInterval(() => gameLoop(), speed);
+
   const endGame = () => {
     setSpeed(null);
     setGameover(true);
@@ -32,9 +27,12 @@ const App = () => {
   const moveSnake = ({ keyCode }) =>
     // only move when arrow keys are used
     keyCode >= 37 && keyCode <= 40 && setDir(DIRECTIONS[keyCode]);
+
+  // randome generator for the apple
   const createApple = () => {
-    //
+    apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));
   };
+
   const checkCollision = (piece, snk = snake) => {
     // check for collision with walls
     if (
@@ -50,12 +48,30 @@ const App = () => {
     ) {
       return true;
     } else {
+      for (const segment of snk) {
+        // if this is true then we have colided with ourself
+        if (piece[0] === segment[0] && piece[1] === segment[1]) {
+          return true;
+        } else {
+          return false;
+        }
+      }
       return false;
     }
   };
 
-  const checkAppleCollision = () => {
+  const checkAppleCollision = newSnake => {
     //check collision with apple make sure that when we first get random apple it is not inside the snake
+    // snake gets apple IE the head of snake is same coord as apple
+    if (newSnake[0][0] === apple[0] && newSnake[0][1] === apple[1]) {
+      let newApple = createApple();
+      while (checkCollision(newApple, newSnake)) {
+        newApple = createApple();
+      }
+      setApple(newApple);
+      return true;
+    }
+    return false;
   };
   const gameLoop = () => {
     //move snake make copy of snake - deep clone since it is a multidimentional array
@@ -67,11 +83,18 @@ const App = () => {
     snakeCopy.unshift(newSnakeHead);
     // check for collison
     if (checkCollision(newSnakeHead)) endGame();
-    //remove the last element in the array - this is how we get snake to crawl
+    // grow snake after eating an apple
+    if (!checkAppleCollision(snakeCopy)) snakeCopy.pop();
 
-    snakeCopy.pop();
     // update state
     setSnake(snakeCopy);
+  };
+  const startGame = () => {
+    setSnake(SNAKE_START);
+    setApple(APPLE_START);
+    setDir([0, -1]);
+    setSpeed(SPEED);
+    setGameover(false);
   };
   //  this use effect is what actualy draws to the canvas
   useEffect(() => {
@@ -91,8 +114,6 @@ const App = () => {
     //draw rect and pull apple out of state
     context.fillRect(apple[0], apple[1], 1, 1);
   }, [snake, apple, gameOver]);
-
-  useInterval(() => gameLoop(), speed);
 
   return (
     <div role="button" tabIndex="0" onKeyDown={e => moveSnake(e)}>
