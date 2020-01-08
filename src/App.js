@@ -11,58 +11,41 @@ import {
 
 const App = () => {
   const canvasRef = useRef();
-  // set up state with the hooks syntax
   const [snake, setSnake] = useState(SNAKE_START);
   const [apple, setApple] = useState(APPLE_START);
   const [dir, setDir] = useState([0, -1]);
   const [speed, setSpeed] = useState(null);
-  const [gameOver, setGameover] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
 
   useInterval(() => gameLoop(), speed);
 
   const endGame = () => {
     setSpeed(null);
-    setGameover(true);
+    setGameOver(true);
   };
+
   const moveSnake = ({ keyCode }) =>
-    // only move when arrow keys are used
     keyCode >= 37 && keyCode <= 40 && setDir(DIRECTIONS[keyCode]);
 
-  // randome generator for the apple
-  const createApple = () => {
+  const createApple = () =>
     apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));
-  };
 
   const checkCollision = (piece, snk = snake) => {
-    // check for collision with walls
     if (
-      // piece is head of snake
-      // x val * scale greater than or = canvas size width
       piece[0] * SCALE >= CANVAS_SIZE[0] ||
-      // or x val less than 0
       piece[0] < 0 ||
-      //y val *scale greater than or = canvas size height
       piece[1] * SCALE >= CANVAS_SIZE[1] ||
-      // or y less than 0
       piece[1] < 0
-    ) {
+    )
       return true;
-    } else {
-      for (const segment of snk) {
-        // if this is true then we have colided with ourself
-        if (piece[0] === segment[0] && piece[1] === segment[1]) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-      return false;
+
+    for (const segment of snk) {
+      if (piece[0] === segment[0] && piece[1] === segment[1]) return true;
     }
+    return false;
   };
 
   const checkAppleCollision = newSnake => {
-    //check collision with apple make sure that when we first get random apple it is not inside the snake
-    // snake gets apple IE the head of snake is same coord as apple
     if (newSnake[0][0] === apple[0] && newSnake[0][1] === apple[1]) {
       let newApple = createApple();
       while (checkCollision(newApple, newSnake)) {
@@ -73,45 +56,31 @@ const App = () => {
     }
     return false;
   };
-  const gameLoop = () => {
-    //move snake make copy of snake - deep clone since it is a multidimentional array
-    const snakeCopy = JSON.parse(JSON.stringify(snake));
-    // make new snake head
-    // calc new x coord looking at the copy's x posiiton and dir  x is the first values in their respective arrays y is the second value
-    const newSnakeHead = [snakeCopy[0][0] + dir[0], snakeCopy[0][1] + dir[1]];
-    // mutate the snakecopy and attach the new head to the start of the array
-    snakeCopy.unshift(newSnakeHead);
-    // check for collison
-    if (checkCollision(newSnakeHead)) endGame();
-    // grow snake after eating an apple
-    if (!checkAppleCollision(snakeCopy)) snakeCopy.pop();
 
-    // update state
+  const gameLoop = () => {
+    const snakeCopy = JSON.parse(JSON.stringify(snake));
+    const newSnakeHead = [snakeCopy[0][0] + dir[0], snakeCopy[0][1] + dir[1]];
+    snakeCopy.unshift(newSnakeHead);
+    if (checkCollision(newSnakeHead)) endGame();
+    if (!checkAppleCollision(snakeCopy)) snakeCopy.pop();
     setSnake(snakeCopy);
   };
+
   const startGame = () => {
     setSnake(SNAKE_START);
     setApple(APPLE_START);
     setDir([0, -1]);
     setSpeed(SPEED);
-    setGameover(false);
+    setGameOver(false);
   };
-  //  this use effect is what actualy draws to the canvas
+
   useEffect(() => {
-    //getting context to be able to draw using canvas
     const context = canvasRef.current.getContext("2d");
-    // set tran from context
-    // set scale with each update or render using what is defined in SCALE const (x and y )
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
-    // clear canvas and draw new stuf
-    context.clearRect(0, 0, CANVAS_SIZE[0], CANVAS_SIZE[1]);
-    ///make the snake pink
+    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     context.fillStyle = "pink";
-    // can just pass in 1 px and SCALE will make the correct size
     snake.forEach(([x, y]) => context.fillRect(x, y, 1, 1));
-    // making apple
     context.fillStyle = "lightblue";
-    //draw rect and pull apple out of state
     context.fillRect(apple[0], apple[1], 1, 1);
   }, [snake, apple, gameOver]);
 
@@ -122,10 +91,11 @@ const App = () => {
         ref={canvasRef}
         width={`${CANVAS_SIZE[0]}px`}
         height={`${CANVAS_SIZE[1]}px`}
-      ></canvas>
-      {gameOver && <div>Game Over !</div>}
-      <button onClick={startGame}>StartGame</button>
+      />
+      {gameOver && <div>GAME OVER!</div>}
+      <button onClick={startGame}>Start Game</button>
     </div>
   );
 };
+
 export default App;
