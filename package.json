@@ -1,5 +1,5 @@
 {
-  "name": "react-practice",
+  "name": "dotted-line-path",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -17,10 +17,22 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AR123456/react-projects.git"
+  },
+  "author": "Anne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AR123456/react-projects/issues"
+  },
+  "homepage": "https://github.com/AR123456/react-projects#readme",
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  
 }
