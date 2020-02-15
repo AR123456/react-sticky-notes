@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "main": "src/index.js",
+  "main": "index.js",
   "dependencies": {
     "d3": "^5.7.0",
     "react": "next",
@@ -17,8 +17,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "description": "",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AR123456/react-projects.git"
@@ -34,5 +32,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  
+  ]
 }
