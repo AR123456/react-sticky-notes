@@ -1,28 +1,42 @@
-import React from "react";
-import Entry from "./Entry";
-import emojipedia from "../emojipedia";
-console.log(emojipedia);
-
-function createEntry(emojipedia) {
-  return (
-    <Entry
-      id={emojipedia.id}
-      emoji={emojipedia.emoji}
-      name={emojipedia.name}
-      meaning={emojipedia.meaning}
-    />
-  );
-}
-/// make dictionary terms into a seperate component called <Entry/>
-// use the emojipeda.js to get data to render page
+import React, { useState } from "react";
+import Header from "./Header";
+import Footer from "./Footer";
+import Note from "./Note";
+import CreateArea from "./CreateArea";
 
 function App() {
+  const [notes, setNotes] = useState([]);
+
+  function addNote(newNote) {
+    setNotes(prevNotes => {
+      return [...prevNotes, newNote];
+    });
+  }
+
+  function deleteNote(id) {
+    setNotes(prevNotes => {
+      return prevNotes.filter((noteItem, index) => {
+        return index !== id;
+      });
+    });
+  }
+
   return (
     <div>
-      <h1>
-        <span>emojipedia</span>
-      </h1>
-      {emojipedia.map(createEntry)}
+      <Header />
+      <CreateArea onAdd={addNote} />
+      {notes.map((noteItem, index) => {
+        return (
+          <Note
+            key={index}
+            id={index}
+            title={noteItem.title}
+            content={noteItem.content}
+            onDelete={deleteNote}
+          />
+        );
+      })}
+      <Footer />
     </div>
   );
 }

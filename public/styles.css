@@ -1,83 +1,103 @@
-body {
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
   font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  line-height: 1.666;
-  background: #c0d2d4;
-  color: #555;
+}
+body {
+  background: #eee;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  padding: 0 16px;
 }
 
-h1 {
-  font-weight: 900;
-  font-size: 500%;
-  text-align: center;
-  margin-top: 4rem;
+header {
+  background-color: #f5ba13;
+  margin: auto -16px;
+  padding: 16px 32px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
   color: #fff;
-  line-height: 1.2;
+  font-family: "McLaren", cursive;
+  font-weight: 200;
 }
 
-h1 span {
-  padding: 5px 15px;
-  background: #2ec2b0;
-}
-
-.dictionary {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 4rem auto;
-  max-width: 90%;
-}
-
-.dictionary > .term {
+footer {
+  position: absolute;
   text-align: center;
-  max-width: 20rem;
-  margin-bottom: 3rem;
-  padding: 2rem;
-  border-radius: 3px;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05), 0 5px 20px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  transition: all 100ms ease-in-out;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
 }
 
-.dictionary > .term > dt {
-  margin-bottom: 1rem;
+footer p {
+  color: #ccc;
+}
+.note {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px;
+  width: 240px;
+  margin: 16px;
+  float: left;
+}
+.note h1 {
+  font-size: 1.1em;
+  margin-bottom: 6px;
+}
+.note p {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
-dt {
-  color: #2ec2b0;
-  line-height: 1;
+.note button {
+  position: relative;
+  float: right;
+  margin-right: 10px;
+  color: #f5ba13;
+  border: none;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  outline: none;
 }
 
-dt span {
-  font-size: 200%;
-  font-weight: 900;
+form.create-note {
+  position: relative;
+  width: 480px;
+  margin: 30px auto 20px auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 7px;
+  box-shadow: 0 1px 5px rgb(138, 137, 137);
 }
-
-.emoji {
-  margin: 0 auto 20px;
-  display: block;
-  font-size: 400%;
+form.create-note input,
+form.create-note textarea {
+  width: 100%;
+  border: none;
+  padding: 4px;
+  outline: none;
+  font-size: 1.2em;
+  font-family: inherit;
+  resize: none;
 }
-
-dd {
-  font-size: 92.5%;
-  margin-left: 0;
-}
-
-dd dt {
-  margin-top: 1rem;
-  margin-bottom: 0.25rem;
-  font-weight: 600;
-  font-size: inherit;
-}
-
-dd dl {
-  font-size: 90%;
-  margin: 1rem auto 0 auto;
-  letter-spacing: 0.33px;
-  max-width: 15rem;
-}
-
-dd dl .term {
-  margin-bottom: 1rem;
+form.create-note button {
+  position: absolute;
+  right: 18px;
+  bottom: -18px;
+  background: #f5ba13;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  outline: none;
 }
