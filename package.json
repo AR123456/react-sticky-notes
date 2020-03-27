@@ -20,7 +20,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  ,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AR123456/react-projects.git"
