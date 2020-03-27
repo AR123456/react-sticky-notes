@@ -1,24 +1,26 @@
 {
-  "name": "dotted-line-path",
-  "version": "1.0.0",
+  "name": "d3-react",
+  "version": "0.1.0",
   "description": "",
   "keywords": [],
   "main": "index.js",
   "dependencies": {
-    "@material-ui/core": "4.6.1",
-    "@material-ui/icons": "4.5.1",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
+    "d3": "^5.12.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
     "react-scripts": "3.2.0",
-    "uuid": "3.3.3"
+    "resize-observer-polyfill": "^1.5.1"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  ,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AR123456/react-projects.git"
@@ -29,10 +31,16 @@
     "url": "https://github.com/AR123456/react-projects/issues"
   },
   "homepage": "https://github.com/AR123456/react-projects#readme",
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
