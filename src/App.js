@@ -7,7 +7,7 @@ function App() {
   const [data] = useState([]);
   return (
     <React.Fragment>
-      <h2>React Hooks and D3 </h2>
+      <h2>React Hooks and D3 Simple Circle </h2>
       <SimpleCircle data={data} />
       {/* <button onClick={() => setData(data.map(value => value + 5))}>
         Update data
