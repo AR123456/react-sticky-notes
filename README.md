@@ -1,1 +1,1 @@
-# Using D3 with react hooks to make data vis
+Trying out React + Tailwind CSS and the Pixabay API 
