@@ -27,10 +27,7 @@
   },
   "author": "Anne",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AR123456/react-projects/issues"
-  },
-  "homepage": "https://github.com/AR123456/react-projects#readme",
+  "homepage": "https://dry-tundra-07090.herokuapp.com/",
   "browserslist": {
     "production": [
       ">0.2%",
