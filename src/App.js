@@ -31,6 +31,9 @@ function App() {
   return (
     <React.Fragment>
       <h2>Responsive D3 Force Layout</h2>
+      <br />
+      <br />
+
       <ForceTreeChart data={data} />
       <h2>Responsive Animated Tree Chart</h2>
       <TreeChart data={data} />
