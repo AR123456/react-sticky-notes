@@ -1,3 +1,3 @@
-## Trying out React + Tailwind CSS and the Pixabay API
+# Using React (Hooks) with D3 - [09] Using React (Hooks) with D3 – Racing Bar Chart
 
-# https://dry-tundra-07090.herokuapp.com/
+Playing with the code from this you tube Tutorial The Muratorium by Muri Kemaldar
