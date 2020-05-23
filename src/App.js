@@ -11,28 +11,28 @@ const data = {
       name: "🙂",
       children: [
         {
-          name: "😀"
+          name: "😀",
         },
         {
-          name: "😁"
+          name: "😁",
         },
         {
-          name: "🤣"
-        }
-      ]
+          name: "🤣",
+        },
+      ],
     },
     {
-      name: "😔"
-    }
-  ]
+      name: "😔",
+    },
+  ],
 };
 
 function App() {
   return (
     <React.Fragment>
-      <h2>🪐 D3 Force Layout</h2>
+      <h2>Responsive D3 Force Layout</h2>
       <ForceTreeChart data={data} />
-      <h2>Animated Tree Chart</h2>
+      <h2>Responsive Animated Tree Chart</h2>
       <TreeChart data={data} />
     </React.Fragment>
   );
