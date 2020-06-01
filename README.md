@@ -1,3 +1,3 @@
-# Using React (Hooks) with D3 - [01] The Basics
+# Using React (Hooks) with D3
 
-Playing with the code from this you tube Tutorial The Muratorium by Muri Kemaldar
+Playing with the code from the you tube Tutorial The Muratorium by Muri Kemaldar
