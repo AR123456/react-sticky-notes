@@ -1,50 +1,78 @@
-import React, { useState, useEffect } from "react";
-import BBTimeline from "./BBTimeline";
+import React, { useState } from "react";
+import RacingBarChart from "./RacingBarChart";
+import useInterval from "./useInterval";
 import "./App.css";
+// functon to generate a random index from the data array
+const getRandomIndex = (array) => {
+  return Math.floor(array.length * Math.random());
+};
 function App() {
-  // bbEpisodes is the value of the the data key
-  const [bbEpisodes, setBbEpisodes] = useState([]);
-  //bbCharacters makes the drop down selection
-  const [bbCharacters, setBbCharacters] = useState([]);
-  //  getting highlight from the onChange event that calls
-  // the setHighlight method
-  const [highlight, setHighlight] = useState();
-  useEffect(() => {
-    fetch("https://www.breakingbadapi.com/api/characters?category=Breaking+Bad")
-      .then((response) => response.ok && response.json())
-      .then((characters) => {
-        // useState method for getting the array of
-        // characters passed into state
-        // use to make drop down selection
-        setBbCharacters(
-          characters.sort((a, b) => a.name.localeCompare(b.name))
-        );
-      })
-      .catch(console.error);
-  }, []);
-  useEffect(() => {
-    fetch("https://www.breakingbadapi.com/api/episodes?series=Breaking+Bad")
-      .then((response) => response.ok && response.json())
-      .then((episodes) => {
-        console.warn(episodes);
-        // useState method to get episodes array passed into
-        // state with key of data
-        setBbEpisodes(episodes);
-      })
-      .catch(console.error);
-  }, []);
+  const [iteration, setIteration] = useState(0);
+  const [start, setStart] = useState(false);
+  //data array
+  const [data, setData] = useState([
+    {
+      name: "alpha",
+      value: 10,
+      color: "#f4efd3",
+    },
+    {
+      name: "beta",
+      value: 15,
+      color: "#cccccc",
+    },
+    {
+      name: "charlie",
+      value: 20,
+      color: "#c2b0c9",
+    },
+    {
+      name: "delta",
+      value: 25,
+      color: "#9656a1",
+    },
+    {
+      name: "echo",
+      value: 30,
+      color: "#fa697c",
+    },
+    {
+      name: "foxtrot",
+      value: 35,
+      color: "#fcc169",
+    },
+  ]);
+  // every 1/2 second iterating over data
+  // randomly select one of the objects in the
+  // data array in increase its value by 10
+  useInterval(() => {
+    if (start) {
+      const randomIndex = getRandomIndex(data);
+      // use setData method to pass values (including the randomly
+      // incremented one) into useState to get it over to the
+      //RacingBarChart component
+      setData(
+        data.map((entry, index) =>
+          index === randomIndex ? { ...entry, value: entry.value + 10 } : entry
+        )
+      );
+      // tracking iterations to display in the p tag under the start race button
+      setIteration(iteration + 1);
+    }
+  }, 500);
+
   return (
     <React.Fragment>
-      <h1>Breaking Bad Timeline</h1>
-      <BBTimeline highlight={highlight} data={bbEpisodes} />
-      <h2>Select your character</h2>
-      <select value={highlight} onChange={(e) => setHighlight(e.target.value)}>
-        <option>Select character</option>
-        {bbCharacters.map((character) => (
-          <option key={character.name}>{character.name}</option>
-        ))}
-      </select>
+      <h1>Racing Bar Chart </h1>
+
+      <RacingBarChart data={data} />
+      {/* onClick event , use setStart method to pass to start to use state  */}
+      <button onClick={() => setStart(!start)}>
+        {start ? "Stop the race" : "Start the race"}
+      </button>
+      <p>Iteration:{iteration}</p>
     </React.Fragment>
   );
 }
+
 export default App;
