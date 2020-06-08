@@ -1,57 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import TreeChart from "./TreeChart";
+import ForceTreeChart from "./ForceTreeChart";
+// import Video from "./Video";
 import "./App.css";
-// structure of the data is important.  D3 will look for the children
-const initialData = {
+
+const data = {
   name: "😐",
   children: [
     {
       name: "🙂",
       children: [
         {
-          name: "😀",
+          name: "😀"
         },
         {
-          name: "😁",
+          name: "😁"
         },
         {
-          name: "🤣",
-        },
-      ],
+          name: "🤣"
+        }
+      ]
     },
     {
-      name: "😔",
-      children: [
-        {
-          name: "🥵",
-        },
-        {
-          name: "😡",
-        },
-      ],
-    },
-    {
-      name: "🐺",
-      children: [
-        {
-          name: "🐕",
-        },
-      ],
-    },
-  ],
+      name: "😔"
+    }
+  ]
 };
-function App() {
-  const [data, setData] = useState(initialData);
 
+function App() {
   return (
     <React.Fragment>
-      <h1>Anamated Tree Chart</h1>
+      <h2>🪐 D3 Force Layout</h2>
+      <ForceTreeChart data={data} />
+      <h2>Animated Tree Chart</h2>
       <TreeChart data={data} />
-      {/* This on click function resets the root node to 
-      make the new root node the first child in the array  */}
-      <button onClick={() => setData(initialData.children[0])}>
-        Update Data
-      </button>
     </React.Fragment>
   );
 }
