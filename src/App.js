@@ -1,27 +1,22 @@
 import React, { useState } from "react";
-
-import GeoChart from "./GeoChart";
-// create react app dosent know what to do with a geo json file
-// so re name it to end in .json
-import data from "./GeoChart.world.geo.json";
+// import Video from "./Video";
 import "./App.css";
+import BrushChart from "./BrushChart";
 
 function App() {
-  const [property, setProperty] = useState("pop_est");
+  //data with array
+  const [data, setData] = useState([10, 25, 30, 40, 25, 60, 90, 102, 211, 55]);
+  const onAddDataClick = () =>
+    setData([...data, Math.round(Math.random() * 100)]);
+
   return (
     <React.Fragment>
-      <h2>World Map with d3-geo</h2>
+      <h2>Sub-selections with d3-brush</h2>
 
-      <GeoChart data={data} property={property} />
-      <h2>Select property to highlight</h2>
-      <select
-        value={property}
-        onChange={(event) => setProperty(event.target.value)}
-      >
-        <option value="pop_est">Population</option>
-        <option value="name_len">Name length</option>
-        <option value="gdp_md_est">GDP</option>
-      </select>
+      <BrushChart data={data} />
+      <button onClick={onAddDataClick}>Add data</button>
+
+      {/* <Video /> */}
     </React.Fragment>
   );
 }
