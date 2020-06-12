@@ -1,3 +1,5 @@
+// this is very much like the BrushChart so can start with a copy paste and remove what is not needed
+// brush, children ,selection- we are now getting from outside , prev selection
 import React, { useRef, useEffect, useState } from "react";
 import {
   select,
@@ -16,29 +18,31 @@ import usePrevious from "./usePrevious";
 /**
  * Component that renders a BrushChart
  */
-// a react prop children added to the grush chart function
-//represents all the children passed to a component
-function BrushChart({ data, children }) {
+// defaulting in the id to be myClip path
+function BrushChartChild({ data, selection, id = "myClipPath" }) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
-  const [selection, setSelection] = useState([0, 1.5]);
-  const previousSelection = usePrevious(selection);
 
   // will be called initially and on every data change
   useEffect(() => {
     const svg = select(svgRef.current);
+    // defining content here so that clipPath knows were to show the svg window, content group element we want to render into
+    const content = svg.select(".content");
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect();
 
     // scales + line generator
+    // xScale still responsible for transforming index  value to pixle values
     const xScale = scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0, width]);
+      // the selection here is what is coming from outside
+      .domain(selection)
+      .range([10, width - 10]);
 
     const yScale = scaleLinear()
       .domain([0, max(data)])
-      .range([height, 0]);
+      // adding padding to top and bottom of chart
+      .range([height - 10, 10]);
 
     const lineGenerator = line()
       .x((d, index) => xScale(index))
@@ -46,7 +50,7 @@ function BrushChart({ data, children }) {
       .curve(curveCardinal);
 
     // render the line
-    svg
+    content
       .selectAll(".myLine")
       .data([data])
       .join("path")
@@ -55,7 +59,7 @@ function BrushChart({ data, children }) {
       .attr("fill", "none")
       .attr("d", lineGenerator);
 
-    svg
+    content
       .selectAll(".myDot")
       .data(data)
       .join("circle")
@@ -79,44 +83,28 @@ function BrushChart({ data, children }) {
 
     const yAxis = axisLeft(yScale);
     svg.select(".y-axis").call(yAxis);
-
-    // brush
-    const brush = brushX()
-      .extent([
-        [0, 0],
-        [width, height]
-      ])
-      .on("start brush end", () => {
-        if (event.selection) {
-          const indexSelection = event.selection.map(xScale.invert);
-          setSelection(indexSelection);
-        }
-      });
-
-    // initial position + retaining position on resize
-    if (previousSelection === selection) {
-      svg
-        .select(".brush")
-        .call(brush)
-        .call(brush.move, selection.map(xScale));
-    }
-  }, [data, dimensions, previousSelection, selection]);
+  }, [data, dimensions, usePrevious, selection]);
 
   return (
     <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
         <svg ref={svgRef}>
+          {/* clipPath fixes the overflow.  It is a window in front of SVG element that only makes what is in window visable */}
+          <defs>
+            {/* inside the defs define the clipPath , it needs an id */}
+            <clipPath id={id}>
+              {/* define the shape of the window  */}
+              <rect x="0" y="0" width="100%" hight="100%" />
+            </clipPath>
+          </defs>
+          {/* apply the clipPaht to a new group calling content. The URL defines the id of the clipPath definition */}
+          <g className="content" clipPath={`url(#${id})`} />
           <g className="x-axis" />
           <g className="y-axis" />
-          <g className="brush" />
         </svg>
       </div>
-      {/* this replaced the small tag from last time  */}
-      {/* the children passed to the component from the outside will be rendered here in this spot. */}
-      {/* make children a function () and pass in the selection */}
-      {children(selection)}
     </React.Fragment>
   );
 }
 
-export default BrushChart;
+export default BrushChartChild;
